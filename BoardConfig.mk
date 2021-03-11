@@ -174,3 +174,8 @@ BOARD_RAMDISK_USE_LZMA := true
 # Dimensions
 TW_Y_OFFSET := 115
 TW_H_OFFSET := -115
+
+
+# Verified Boot
+BOARD_AVB_ENABLE := true
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 2
