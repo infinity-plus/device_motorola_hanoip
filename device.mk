@@ -88,3 +88,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
     android.hidl.manager@1.0
+# Init
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/etc/init.hanoip.rc:$(TARGET_COPY_OUT_SYSTEM)/etc/init/init.hanoip.rc
