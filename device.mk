@@ -103,5 +103,12 @@ include vendor/motorola/hanoip/hanoip-vendor.mk
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/vintf/android.hardware.lights-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/android.hardware.lights-qti.xml
 
+# NFC
+PRODUCT_PACKAGES += \
+    NfcNci \
+    Tag \
+    SecureElement \
+    com.android.nfc_extras
+
 include vendor/xiaomi/sweet/sweet-vendor.mk
 >>>>>>> 0b765fb... sweet: override stock light HAL
