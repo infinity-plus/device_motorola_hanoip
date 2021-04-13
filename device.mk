@@ -100,7 +100,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.hanoip
 
-include vendor/motorola/hanoip/hanoip-vendor.mk
 # VINTF
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/vintf/android.hardware.lights-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/android.hardware.lights-qti.xml
@@ -115,3 +114,26 @@ PRODUCT_PACKAGES += \
 # Device Settings
 PRODUCT_PACKAGES += \
     DeviceSettings
+
+# Overlays
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay
+
+# Permissions
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.telephony.ims.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.hardware.telephony.ims.xml
+
+# Telephony
+PRODUCT_PACKAGES += \
+    ims-ext-common \
+    ims_ext_common.xml \
+    qti-telephony-hidl-wrapper \
+    qti_telephony_hidl_wrapper.xml \
+    qti-telephony-utils \
+    qti_telephony_utils.xml \
+    telephony-ext \
+
+PRODUCT_BOOT_JARS += \
+    telephony-ext
+
+include vendor/motorola/hanoip/hanoip-vendor.mk
