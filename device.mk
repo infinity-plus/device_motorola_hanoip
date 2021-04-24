@@ -1,12 +1,19 @@
 # Inherit from common AOSP config
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
+<<<<<<< HEAD
 LOCAL_PATH := device/motorola/hanoip
 
 # define hardware platform
 PRODUCT_PLATFORM := sm6150
 
 # Dynamic partitions
+=======
+# VNDK
+PRODUCT_TARGET_VNDK_VERSION := 30
+
+# Dynamic partitions setup
+>>>>>>> d57e6be... sweet: Start using vendor_overlay
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # fastbootd
@@ -16,7 +23,7 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/audio_policy_configuration.xml
+    $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_PRODUCT)/vendor_overlay/$(PRODUCT_TARGET_VNDK_VERSION)/etc/audio_policy_configuration.xml
 
 # Installs gsi keys into ramdisk, to boot a GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
@@ -102,7 +109,7 @@ PRODUCT_PACKAGES += \
 
 # VINTF
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/vintf/android.hardware.lights-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/android.hardware.lights-qti.xml
+    $(LOCAL_PATH)/configs/vintf/android.hardware.lights-qti.xml:$(TARGET_COPY_OUT_PRODUCT)/vendor_overlay/$(PRODUCT_TARGET_VNDK_VERSION)/etc/vintf/manifest/android.hardware.lights-qti.xml
 
 # NFC
 PRODUCT_PACKAGES += \

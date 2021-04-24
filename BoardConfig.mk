@@ -199,3 +199,9 @@ DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/configs/vintf/framework_manifes
 # Init
 TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_hanoip
 TARGET_RECOVERY_DEVICE_MODULES := libinit_hanoip
+
+# FM
+BOARD_HAVE_QCOM_FM := true
+
+# Filesystem
+TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/configs/config.fs
