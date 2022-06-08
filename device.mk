@@ -1,19 +1,15 @@
 # Inherit from common AOSP config
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
-<<<<<<< HEAD
 LOCAL_PATH := device/motorola/hanoip
 
 # define hardware platform
 PRODUCT_PLATFORM := sm6150
 
-# Dynamic partitions
-=======
 # VNDK
 PRODUCT_TARGET_VNDK_VERSION := 30
 
 # Dynamic partitions setup
->>>>>>> d57e6be... sweet: Start using vendor_overlay
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # fastbootd
@@ -23,7 +19,7 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_PRODUCT)/vendor_overlay/$(PRODUCT_TARGET_VNDK_VERSION)/etc/audio_policy_configuration.xml
+    $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
 
 # Installs gsi keys into ramdisk, to boot a GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
@@ -153,7 +149,7 @@ PRODUCT_PACKAGES += \
     android.hardware.power-service.hanoip-libperfmgr
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/power-libperfmgr/powerhint.json:$(TARGET_COPY_OUT_PRODUCT)/vendor_overlay/$(PRODUCT_TARGET_VNDK_VERSION)/etc/powerhint.json
+    $(LOCAL_PATH)/power-libperfmgr/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
 # WiFi Display
 PRODUCT_PACKAGES += \

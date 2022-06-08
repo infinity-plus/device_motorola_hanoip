@@ -46,10 +46,19 @@ TARGET_USES_UEFI := true
 
 # RULES
 BUILD_BROKEN_DUP_RULES := true
+QCOM_SOONG_NAMESPACE := $(empty)
 BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
 BUILD_BROKEN_PREBUILT_ELF_FILES := true
 
 # Kernel
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom \
+                        lpm_levels.sleep_disabled=1 \
+                        video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 \
+                        service_locator.enable=1 \
+                        swiotlb=1 \
+                        androidboot.usbcontroller=a600000.dwc3 \
+                        androidboot.selinux=permissive
+
 BOARD_BOOT_HEADER_VERSION := 3
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_BASE          := 0x00000000
@@ -59,6 +68,7 @@ BOARD_KERNEL_TAGS_OFFSET   := 0x00000100
 BOARD_DTB_OFFSET           := 0x01f00000
 BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz
+TARGET_KERNEL_ARCH := arm64
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
 BOARD_INCLUDE_RECOVERY_DTBO := true
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
@@ -88,7 +98,7 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
-BOARD_MOTOROLA_DYNAMIC_PARTITIONS_PARTITION_LIST := product system system_ext vendor
+BOARD_MOTOROLA_DYNAMIC_PARTITIONS_PARTITION_LIST :=odm product system system_ext vendor
 BOARD_MOTOROLA_DYNAMIC_PARTITIONS_SIZE := 10800332800
 BOARD_SUPER_PARTITION_GROUPS := motorola_dynamic_partitions
 BOARD_SUPER_PARTITION_SIZE := 10804527104
@@ -98,9 +108,12 @@ TARGET_COPY_OUT_VENDOR := vendor
 
 BOARD_PARTITION_LIST := $(call to-upper, $(BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST))
 $(foreach p, CACHE $(BOARD_PARTITION_LIST), $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := ext4))
-$(foreach p, $(BOARD_PARTITION_LIST) VENDOR, $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))))
+$(foreach p, $(BOARD_PARTITION_LIST), $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))))
 $(foreach p, $(BOARD_PARTITION_LIST), $(eval BOARD_$(p)IMAGE_PARTITION_RESERVED_SIZE := 524288000))
 
+
+# Security patch level
+VENDOR_SECURITY_PATCH := 2022-03-01
 
 # Recovery
 BOARD_USES_RECOVERY_AS_BOOT := true
@@ -133,7 +146,6 @@ BOARD_USES_METADATA_PARTITION := true
 BOARD_USES_QCOM_FBE_DECRYPTION := true
 
 # Extras
-TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_REPACKTOOLS := true
 
@@ -200,11 +212,18 @@ BOARD_PLAT_PUBLIC_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/public
 include device/qcom/sepolicy/SEPolicy.mk
 
 # VINTF
+DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/configs/vintf/manifest.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/configs/vintf/framework_manifest.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := $(DEVICE_PATH)/configs/vintf/compatibility_matrix.xml
 
 # Init
 TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_hanoip
 TARGET_RECOVERY_DEVICE_MODULES := libinit_hanoip
+
+#Properties
+TARGET_ODM_PROP += $(DEVICE_PATH)/odm.prop
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
 # FM
 BOARD_HAVE_QCOM_FM := true
