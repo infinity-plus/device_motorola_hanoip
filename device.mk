@@ -91,3 +91,7 @@ PRODUCT_PACKAGES += \
 # Init
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/init.hanoip.rc:$(TARGET_COPY_OUT_SYSTEM)/etc/init/init.hanoip.rc
+
+# Lights
+PRODUCT_PACKAGES += \
+    android.hardware.light@2.0-service.hanoip
