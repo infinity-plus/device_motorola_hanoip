@@ -27,9 +27,9 @@ def IncrementalOTA_InstallEnd(info):
 
 def AddImage(info, basename, dest):
   name = basename
-  data = info.input_zip.read("IMAGES/" + basename)
+  data = info.input_zip.read(f"IMAGES/{basename}")
   common.ZipWriteStr(info.output_zip, name, data)
-  info.script.Print("Patching %s" % name.replace(".img", ""))
+  info.script.Print(f'Patching {name.replace(".img", "")}')
   info.script.AppendExtra('package_extract_file("%s", "%s");' % (name, dest))
 
 def OTA_InstallEnd(info):
